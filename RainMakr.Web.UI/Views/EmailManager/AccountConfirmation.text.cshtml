@@ -1,0 +1,8 @@
+﻿@model RainMakr.Web.Models.Notifications.AccountConfirmationNotification
+@{
+    Layout = "~/Views/EmailManager/_TextLayout.cshtml";
+}
+
+Account confirmation
+
+Please confirm your account by copying this address @Url.Action("ConfirmEmail", "Account", new { PersonId = Model.PersonId, Code = Model.Code }, protocol: Request.Url.Scheme) into your browser.

@@ -6,7 +6,9 @@ using System.Web.Mvc;
 
 namespace RainMakr.Web.UI.Controllers
 {
-    public class HomeController : Controller
+    using RainMakr.Web.Core;
+
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

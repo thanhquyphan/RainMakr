@@ -8,6 +8,8 @@ using System.Web.Routing;
 
 namespace RainMakr.Web.UI
 {
+    using RainMakr.Web.Configuration;
+
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()

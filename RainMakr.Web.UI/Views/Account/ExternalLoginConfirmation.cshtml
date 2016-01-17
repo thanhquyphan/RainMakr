@@ -3,9 +3,9 @@
     ViewBag.Title = "Register";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>Associate your @ViewBag.LoginProvider account.</h3>
+<h3>Associate your @Model.LogInProvider account.</h3>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl, LogInProvider = Model.LogInProvider }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -13,15 +13,25 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <p class="text-info">
-        You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
-            Please enter a user name for this site below and click the Register button to finish
-            logging in.
+        You've successfully authenticated with <strong>@Model.LogInProvider</strong>.
+        Please enter a local password for this site below so you can log in without an external login and click the Register button to finish
+        logging in.
     </p>
+    @Html.HiddenFor(m => m.SubmitModel.Email)
+    @Html.HiddenFor(m => m.SubmitModel.FirstName)
+    @Html.HiddenFor(m => m.SubmitModel.LastName)
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SubmitModel.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            @Html.PasswordFor(m => m.SubmitModel.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SubmitModel.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SubmitModel.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.SubmitModel.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SubmitModel.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
