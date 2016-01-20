@@ -38,7 +38,7 @@ namespace RainMakr.Web.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Device", t => t.DeviceId)
                 .Index(t => t.DeviceId);
-            this.Sql("create unique nonclustered index IX_Schedule_UniqueScheduleTrigger on dbo.Schedule(PersonId, StartDate, Offset, Days)");
+            this.Sql("create unique nonclustered index IX_Schedule_UniqueScheduleTrigger on dbo.Schedule(DeviceId, StartDate, Offset, Days)");
         }
         
         public override void Down()

@@ -10,7 +10,7 @@ namespace RainMakr.Web.Interfaces.Manager.Command
 
     public interface IScheduleCommandManager : ICommandManager
     {
-        Task AddScheduleAsync(string personId, string deviceId, Schedule schedule);
+        Task AddScheduleAsync(string personId, Schedule schedule);
 
         Task RemoveScheduleAsync(string personId, string deviceId, string id);
     }

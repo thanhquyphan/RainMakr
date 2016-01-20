@@ -26,9 +26,9 @@ namespace RainMakr.Web.BusinessLogics.Command
             this.deviceQueryManager = deviceQueryManager;
         }
 
-        public async Task AddScheduleAsync(string personId, string deviceId, Schedule schedule)
+        public async Task AddScheduleAsync(string personId, Schedule schedule)
         {
-            var device = await this.deviceQueryManager.GetDeviceAsync(personId, deviceId);
+            var device = await this.deviceQueryManager.GetDeviceAsync(personId, schedule.DeviceId);
 
             var schedules = await this.scheduleQueryManager.GetSchedulesAsync(personId, device.Id);
             if (schedules.Any(x => x.StartDate == schedule.StartDate && x.Days == schedule.Days && x.Offset == schedule.Offset))

@@ -6,13 +6,29 @@ using System.Web.Mvc;
 
 namespace RainMakr.Web.UI.Controllers
 {
-    using RainMakr.Web.Core;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNet.Identity;
+
+    using RainMakr.Web.Core;
+    using RainMakr.Web.Interfaces.Manager.Query;
+    using RainMakr.Web.UI.ViewModels;
+
+    [Authorize]
     public class HomeController : BaseController
     {
-        public ActionResult Index()
+        private readonly IDeviceQueryManager deviceQueryManager;
+
+        public HomeController(IDeviceQueryManager deviceQueryManager)
         {
-            return View();
+            this.deviceQueryManager = deviceQueryManager;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            var model = new HomeViewModel{Devices = await this.deviceQueryManager.GetDevicesAsync(this.User.Identity.GetUserId())};
+
+            return View(model);
         }
 
         public ActionResult About()

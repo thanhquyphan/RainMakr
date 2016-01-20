@@ -70,6 +70,11 @@ namespace RainMakr.Web.UI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (this.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect(returnUrl);
+            }
+
             this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
         }
