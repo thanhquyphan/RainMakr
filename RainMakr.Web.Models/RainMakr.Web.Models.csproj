@@ -48,10 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\EmailSendFailureException.cs" />
+    <Compile Include="Device.cs" />
     <Compile Include="Notifications\AccountConfirmationNotification.cs" />
     <Compile Include="Notifications\PasswordResetNotification.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleDay.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

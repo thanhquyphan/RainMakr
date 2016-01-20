@@ -24,5 +24,7 @@ namespace RainMakr.Web.Models
         /// </summary>
         [StringLength(100)]
         public string LastName { get; set; }
+
+        public ICollection<Device> Devices { get; set; }
     }
 }

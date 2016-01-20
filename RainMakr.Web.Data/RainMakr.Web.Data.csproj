@@ -56,14 +56,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDatabaseContext.cs" />
+    <Compile Include="Command\DeviceCommandStore.cs" />
+    <Compile Include="Command\ScheduleCommandStore.cs" />
     <Compile Include="Migrations\201601171044514_InitialCreate.cs" />
     <Compile Include="Migrations\201601171044514_InitialCreate.Designer.cs">
       <DependentUpon>201601171044514_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601191105025_AddDeviceAndScheduleTables.cs" />
+    <Compile Include="Migrations\201601191105025_AddDeviceAndScheduleTables.Designer.cs">
+      <DependentUpon>201601191105025_AddDeviceAndScheduleTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\DeviceQueryStore.cs" />
+    <Compile Include="Query\ScheduleQueryStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RainMakr.Web.Interfaces\RainMakr.Web.Interfaces.csproj">
+      <Project>{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}</Project>
+      <Name>RainMakr.Web.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RainMakr.Web.Models\RainMakr.Web.Models.csproj">
       <Project>{9471289B-E47B-4653-BE29-1FB0E945EDD1}</Project>
       <Name>RainMakr.Web.Models</Name>
@@ -77,7 +89,11 @@
     <EmbeddedResource Include="Migrations\201601171044514_InitialCreate.resx">
       <DependentUpon>201601171044514_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601191105025_AddDeviceAndScheduleTables.resx">
+      <DependentUpon>201601191105025_AddDeviceAndScheduleTables.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
