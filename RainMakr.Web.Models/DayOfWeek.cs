@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RainMakr.Web.Models
 {
     [Flags]
-    public enum ScheduleDay
+    public enum DayOfWeek
     {
         Undefined = 0,
         Sunday = 1 << 0,

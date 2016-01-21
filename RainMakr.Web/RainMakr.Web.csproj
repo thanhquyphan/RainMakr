@@ -149,9 +149,11 @@
     <Compile Include="Configuration\AuthConfig.cs" />
     <Compile Include="Configuration\BundleConfig.cs" />
     <Compile Include="Configuration\FilterConfig.cs" />
+    <Compile Include="Configuration\ModelBinderConfig.cs" />
     <Compile Include="Configuration\RouteConfig.cs" />
     <Compile Include="Configuration\UnityConfig.cs" />
     <Compile Include="Core\BaseController.cs" />
+    <Compile Include="Core\DayOfWeekModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unity\UnityController.cs" />
     <Compile Include="Unity\UnityControllerFactory.cs" />

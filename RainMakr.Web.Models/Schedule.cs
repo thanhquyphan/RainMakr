@@ -29,7 +29,7 @@ namespace RainMakr.Web.Models
         [Required]
         public int Duration { get; set; }
 
-        public ScheduleDay? Days { get; set; }
+        public DayOfWeek? Days { get; set; }
 
         public string DeviceId { get; set; }
 

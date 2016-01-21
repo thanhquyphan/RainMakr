@@ -42,23 +42,36 @@ namespace RainMakr.Web.UI.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<ActionResult> AddSchedule()
+        public async Task<ActionResult> AddSchedule([ModelBinder(typeof(DayOfWeekModelBinder))] DayOfWeek days)
         {
-            var schedule = new Schedule();
+            var submitModel = new ScheduleSubmitModel{ Days = days };
 
-            if (!this.TryUpdateModel(schedule))
+            if (!this.TryUpdateModel(submitModel
+                , new[]{"CheckForRain", "DeviceId", "Duration", "Hours", "Minutes", "Recurrence", "StartDate"}
+                )
+                )
             {
                 return this.View("Add");
             }
 
+            var schedule = new Schedule
+                               {
+                                   CheckForRain = submitModel.CheckForRain,
+                                   Days = submitModel.Days,
+                                   DeviceId = submitModel.DeviceId,
+                                   Duration = submitModel.Duration,
+                                   Offset = new TimeSpan(submitModel.Hours, submitModel.Minutes, 0),
+                                   Recurrence = submitModel.Recurrence,
+                                   StartDate = submitModel.StartDate
+                               };
             await this.scheduleCommandManager.AddScheduleAsync(this.HttpContext.User.Identity.GetUserId(), schedule);
-            return RedirectToAction("Index", new { Id = schedule.Id, DeviceId = schedule.DeviceId });
+            return RedirectToAction("Index", new { Id = schedule.Id, DeviceId = submitModel.DeviceId });
         }
 
         [Route("Add/{deviceId}")]
         public async Task<ActionResult> Add(string deviceId)
         {
-            var model = new Schedule { DeviceId = deviceId };
+            var model = new ScheduleSubmitModel { DeviceId = deviceId };
 
             return View(model);
         }

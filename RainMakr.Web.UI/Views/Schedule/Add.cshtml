@@ -1,4 +1,6 @@
-﻿@model RainMakr.Web.Models.Schedule
+﻿@using RainMakr.Web.Models
+@using DayOfWeek = RainMakr.Web.Models.DayOfWeek
+@model RainMakr.Web.UI.ViewModels.ScheduleSubmitModel
 
 @{
     ViewBag.Title = "Add new schedule";
@@ -6,13 +8,89 @@
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-9">
         <h1>Add a schedule</h1>
-        @using (Html.BeginForm("AddSchedule", "Schedule", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddSchedule", "Schedule", new { DeviceId = Model.DeviceId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Recurrence, new { @class = "col-md-2 control-label" })
+                <div class="col-md-1 checkbox">
+                    @Html.CheckBoxFor(m => m.Recurrence, new { @class = "checkbox" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CheckForRain, new { @class = "col-md-2 control-label" })
+                <div class="col-md-1 checkbox">
+                    @Html.CheckBoxFor(m => m.CheckForRain, new { @class = "checkbox" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Duration, new { @class = "col-md-2 control-label" })
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <input class="form-control" id="Duration" min="1" max="60" name="Duration" type="number">
+                        <div class="input-group-addon">minutes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" data-validation-error-for="LearningTime">
+                <label class="col-md-2 control-label">Start time</label>
+                <div class="col-md-5" data-validation-error-for="Hours">
+                    <label class="sr-only" for="Hours">Hours</label>
+                    <div class="input-group">
+                        <input class="form-control" id="Hours" min="0" max="23" name="Hours" type="number">
+                        <div class="input-group-addon">hours</div>
+                    </div>
+                </div>
+
+                <div class="col-md-5" data-validation-error-for="Minutes">
+                    <label class="sr-only" for="Minutes">Minutes</label>
+                    <div class="input-group">
+                        <input class="form-control" id="Minutes" min="0" max="59" name="Minutes" type="number">
+                        <div class="input-group-addon">minutes</div>
+                    </div>
+                </div>
+            </div>
             
+            <div class="form-group">
+                @Html.LabelFor(m => m.StartDate, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <input class="form-control datepicker" name="StartDate" data-date-format="mm/dd/yyyy">
+                </div>
+            </div>
+
+            <div>
+                <table class="table table-striped no-margins text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Sun</th>
+                            <th class="text-center">Mon</th>
+                            <th class="text-center">Tue</th>
+                            <th class="text-center">Wed</th>
+                            <th class="text-center">Thu</th>
+                            <th class="text-center">Fri</th>
+                            <th class="text-center">Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach (var item in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(item => item != DayOfWeek.Undefined))
+                            {
+
+                                <td>
+                                    <input class="checkbox" name="Days" type="checkbox" value="@item.ToString()">
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Add" class="btn btn-primary" />
