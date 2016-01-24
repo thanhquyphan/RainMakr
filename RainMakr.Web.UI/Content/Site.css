@@ -15,10 +15,3 @@ select,
 textarea {
     max-width: 280px;
 }
-
-input[type="checkbox"] {
-        display: block;
-    height: 20px;
-    vertical-align: middle;
-    width: 100%;
-}

@@ -5,8 +5,6 @@
 @{
     ViewBag.Title = "Add new schedule";
 }
-
-
 <div class="row">
     <div class="col-md-9">
         <h1>Add a schedule</h1>
@@ -16,55 +14,76 @@
             @Html.ValidationSummary("", new { @class = "text-danger" })
 
             <div class="form-group">
-                @Html.LabelFor(m => m.Recurrence, new { @class = "col-md-2 control-label" })
-                <div class="col-md-1 checkbox">
-                    @Html.CheckBoxFor(m => m.Recurrence, new { @class = "checkbox" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.CheckForRain, new { @class = "col-md-2 control-label" })
-                <div class="col-md-1 checkbox">
-                    @Html.CheckBoxFor(m => m.CheckForRain, new { @class = "checkbox" })
-                </div>
-            </div>
-            <div class="form-group">
                 @Html.LabelFor(m => m.Duration, new { @class = "col-md-2 control-label" })
-                <div class="col-md-5">
+                <div class="col-md-10">
                     <div class="input-group">
-                        <input class="form-control" id="Duration" min="1" max="60" name="Duration" type="number">
-                        <div class="input-group-addon">minutes</div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" data-validation-error-for="LearningTime">
-                <label class="col-md-2 control-label">Start time</label>
-                <div class="col-md-5" data-validation-error-for="Hours">
-                    <label class="sr-only" for="Hours">Hours</label>
-                    <div class="input-group">
-                        <input class="form-control" id="Hours" min="0" max="23" name="Hours" type="number">
-                        <div class="input-group-addon">hours</div>
-                    </div>
-                </div>
+                        
+                        <div class="input-group-addon">Minutes</div>
+                        <input class="form-control" id="Duration" min="1" max="60" maxlength="2" name="Duration" type="number" value="@Model.Duration">
 
-                <div class="col-md-5" data-validation-error-for="Minutes">
-                    <label class="sr-only" for="Minutes">Minutes</label>
-                    <div class="input-group">
-                        <input class="form-control" id="Minutes" min="0" max="59" name="Minutes" type="number">
-                        <div class="input-group-addon">minutes</div>
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
-                @Html.LabelFor(m => m.StartDate, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    <input class="form-control datepicker" name="StartDate" data-date-format="mm/dd/yyyy">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <label for="CheckForRain">
+                            @Html.CheckBoxFor(m => m.CheckForRain) Check for rain
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <table class="table table-striped no-margins text-center">
-                    <thead>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <label for="Recurrence">
+                            @Html.CheckBoxFor(m => m.Recurrence) Recurrence
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" data-validation-error-for="Hours">
+                <label class="col-md-2 control-label">Start time</label>
+                <div class="col-md-5" data-validation-error-for="Hours">
+                    <label class="sr-only" for="Hours">Hours</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Hours</div>
+                        <input class="form-control" id="Hours" value="@Model.Hours" min="0" max="23" maxlength="2" name="Hours" type="number">
+
+                    </div>
+                </div>
+
+                <div class="form-group" data-validation-error-for="Minutes">
+                    <label class="sr-only" for="Minutes">Minutes</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Minutes</div>
+                        <input class="form-control" id="Minutes" min="0" value="@Model.Minutes" maxlength="2" max="59" name="Minutes" type="number">
+
+                    </div>
+                </div>
+            </div>
+            <div id="NonRecurrenceSection" style="@(Model.Recurrence ? "display: none;" : string.Empty)">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StartDate, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                            <input class="form-control datepicker" type="text" name="StartDate">
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="RecurrenceSection" style="@(Model.Recurrence ? string.Empty : "display: none;")">
+                <div>
+                    <button class="everyday btn btn-default" type="button">Everyday</button>
+                    <table class="table table-striped no-margins text-center">
+                        <thead>
                         <tr>
                             <th class="text-center">Sun</th>
                             <th class="text-center">Mon</th>
@@ -74,23 +93,22 @@
                             <th class="text-center">Fri</th>
                             <th class="text-center">Sat</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr>
-                            @foreach (var item in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(item => item != DayOfWeek.Undefined))
+                            @foreach (var item in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(item => item != DayOfWeek.Undefined && item != DayOfWeek.Everyday))
                             {
 
                                 <td>
-                                    <input class="checkbox" name="Days" type="checkbox" value="@item.ToString()">
+                                    <input name="Days" class="days-checkbox" type="checkbox" value="@item.ToString()" checked="@(Model.Days.GetValueOrDefault(DayOfWeek.Undefined).HasFlag(item))">
                                 </td>
                             }
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-
-
+            
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Add" class="btn btn-primary" />
@@ -99,3 +117,34 @@
         }
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        (function() {
+            $('.datepicker').datepicker({
+                format: "dd/mm/yyyy",
+                startDate: "@DateTime.Today.ToShortDateString()",
+                todayHighlight: true,
+                todaybtn: false,
+                container: $(this).attr("id"),
+                orientation: "bottom auto"
+            });
+
+            $(".everyday").on("click", function() {
+                $(".days-checkbox").each(function() {
+                    $(this).prop("checked", true);
+                });
+            });
+
+            $("#Recurrence").on("click", function() {
+                if ($(this).prop("checked") == true) {
+                    $("#NonRecurrenceSection").hide("toggle");
+                    $("#RecurrenceSection").show("toggle");
+                } else if ($(this).prop("checked") == false) {
+                    $("#RecurrenceSection").hide("toggle");
+                    $("#NonRecurrenceSection").show("toggle");
+                }
+            });
+        })();
+    </script>
+}

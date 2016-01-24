@@ -26,14 +26,14 @@
             </dd>
         </dl>
         <h2>Schedules</h2>
-        @Html.ActionLink("Add a schedule", "Add", "Schedule", new { DeviceId = Model.Id }, null)
+        @Html.ActionLink("Add a schedule", "Add", "Schedule", new { DeviceId = Model.Id }, new {@class ="btn btn-default"})
         <div class="row">
             <div class="col-md-4">
                 @if (Model.Schedules.Any())
                 {
                     foreach (var schedule in Model.Schedules)
                     {
-                        <p>@schedule.Id</p>
+                        <p>@Html.ActionLink(@schedule.ToString(), "Index", "Schedule", new { DeviceId = Model.Id, Id = schedule.Id }, null)</p>
                     }
                 }
                 else

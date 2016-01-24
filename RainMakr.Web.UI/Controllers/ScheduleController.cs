@@ -51,36 +51,36 @@ namespace RainMakr.Web.UI.Controllers
                 )
                 )
             {
-                return this.View("Add");
+                return this.View("Add", submitModel);
             }
 
             var schedule = new Schedule
                                {
                                    CheckForRain = submitModel.CheckForRain,
-                                   Days = submitModel.Days,
+                                   Days = submitModel.Recurrence ? submitModel.Days : null,
                                    DeviceId = submitModel.DeviceId,
                                    Duration = submitModel.Duration,
                                    Offset = new TimeSpan(submitModel.Hours, submitModel.Minutes, 0),
                                    Recurrence = submitModel.Recurrence,
-                                   StartDate = submitModel.StartDate
+                                   StartDate = submitModel.Recurrence ? null : submitModel.StartDate
                                };
             await this.scheduleCommandManager.AddScheduleAsync(this.HttpContext.User.Identity.GetUserId(), schedule);
-            return RedirectToAction("Index", new { Id = schedule.Id, DeviceId = submitModel.DeviceId });
+            return this.RedirectToAction("Index", new { Id = schedule.Id, DeviceId = submitModel.DeviceId });
         }
 
         [Route("Add/{deviceId}")]
-        public async Task<ActionResult> Add(string deviceId)
+        public ActionResult Add(string deviceId)
         {
             var model = new ScheduleSubmitModel { DeviceId = deviceId };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
         public async Task<ActionResult> Remove(string deviceId, string id)
         {
             await this.scheduleCommandManager.RemoveScheduleAsync(this.HttpContext.User.Identity.GetUserId(), deviceId, id);
-            return RedirectToAction("Index", "Device", new { Id = deviceId });
+            return this.RedirectToAction("Index", "Device", new { Id = deviceId });
         } 
     }
 }

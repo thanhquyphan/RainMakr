@@ -8,6 +8,8 @@ namespace RainMakr.Web.Models
 {
     using System.ComponentModel.DataAnnotations;
 
+    using RainMakr.Web.Models.Core.Extensions;
+
     public class Schedule
     {
         public Schedule()
@@ -34,5 +36,36 @@ namespace RainMakr.Web.Models
         public string DeviceId { get; set; }
 
         public virtual Device Device { get; set; }
+
+        public override string ToString()
+        {
+            if (this.Recurrence)
+            {
+
+                string daysText;
+                if (this.Days == DayOfWeek.Everyday)
+                {
+                    daysText = "Everyday";
+                }
+                else
+                {
+                    var test = this.Days.Value.GetFlags();
+                    var values = this.Days.Value.GetFlags().Where(i => !i.Equals(DayOfWeek.Undefined)).Select(x => x.ToString()).ToArray();
+                    daysText = string.Join(", ", values, 0, values.Length - 1);
+                    daysText = daysText + " and " + values.Last();
+                }
+                return string.Format("{0} at {1:00}:{2:00} for {3} minutes{4}", daysText, this.Offset.Hours, this.Offset.Minutes, this.Duration, this.CheckForRain ? " with checking for rain." : string.Empty);
+            }
+            else
+            {
+                return string.Format(
+                    "{0} at {1:00}:{2:00} for {3} minutes{4}",
+                    this.StartDate.Value.ToShortDateString(),
+                    this.Offset.Hours,
+                    this.Offset.Minutes,
+                    this.Duration, 
+                    this.CheckForRain ? " with checking for rain." : string.Empty);
+            }
+        }
     }
 }

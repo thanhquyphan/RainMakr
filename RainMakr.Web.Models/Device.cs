@@ -23,6 +23,8 @@ namespace RainMakr.Web.Models
 
         public string PersonId { get; set; }
 
+        public string IpAddress { get; set; }
+
         [Required]
         [MaxLength(17)]
         public string MacAddress { get; set; }
