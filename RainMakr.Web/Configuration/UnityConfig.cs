@@ -9,6 +9,8 @@
 
 namespace RainMakr.Web.Configuration
 {
+    using System;
+    using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -25,6 +27,8 @@ namespace RainMakr.Web.Configuration
     using RainMakr.Web.Interfaces.Store;
     using RainMakr.Web.Models;
     using RainMakr.Web.Unity;
+
+    using RestSharp;
 
     /// <summary>
     /// The unity config.
@@ -75,6 +79,7 @@ namespace RainMakr.Web.Configuration
             var userManager = AuthConfig.ConfigureUserManager(userStore, app);
             container.RegisterInstance(typeof(UserManager<Person>), userManager);
             container.RegisterInstance(typeof(IUserStore<Person>), userStore);
+            container.RegisterInstance(typeof(RestClient), new RestClient(new Uri(ConfigurationManager.AppSettings["ServiceLocation"])));
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory(container));
         }
     }

@@ -13,5 +13,7 @@ namespace RainMakr.Web.Interfaces.Manager.Query
         Task<Device> GetDeviceAsync(string personId, string id);
 
         Task<List<Device>> GetDevicesAsync(string personId);
+
+        Task<DeviceStatus> GetDeviceStatusAsync(string personId, string id);
     }
 }

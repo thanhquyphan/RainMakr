@@ -21,8 +21,6 @@ namespace RainMakr.Netduino
             WebServerWrapper.StartWebServer(2456, false);
 
             RunUtil.KeepRunning();
-
-            Debug.Print(Resources.GetString(Resources.StringResources.String1));
         }
     }
 }

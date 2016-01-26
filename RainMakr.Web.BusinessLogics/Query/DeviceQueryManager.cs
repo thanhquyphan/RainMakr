@@ -37,5 +37,10 @@ namespace RainMakr.Web.BusinessLogics.Query
         {
             return this.deviceQueryStore.GetDevicesAsync(personId);
         }
+
+        public Task<DeviceStatus> GetDeviceStatusAsync(string personId, string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

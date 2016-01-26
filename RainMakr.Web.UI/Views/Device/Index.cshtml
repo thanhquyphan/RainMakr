@@ -25,6 +25,10 @@
                 @Html.DisplayFor(model => model.MacAddress)
             </dd>
         </dl>
+
+        <form action="@Url.Action("Start", "Device", new { Id = Model.Id })" method="post">
+            <button type="submit" class="btn btn-primary">Start</button>
+        </form>
         <h2>Schedules</h2>
         @Html.ActionLink("Add a schedule", "Add", "Schedule", new { DeviceId = Model.Id }, new {@class ="btn btn-default"})
         <div class="row">

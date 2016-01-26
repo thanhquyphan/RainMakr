@@ -11,13 +11,16 @@ namespace RainMakr.Web.BusinessLogics.Command
     using RainMakr.Web.Interfaces.Store.Command;
     using RainMakr.Web.Models;
 
-    public class DeviceCommandManager : IDeviceCommandManager
+    using RestSharp;
+
+    public class DeviceCommandManager : WebServiceBase, IDeviceCommandManager
     {
         private readonly IDeviceCommandStore deviceCommandStore;
 
         private readonly IDeviceQueryManager deviceQueryManager;
 
-        public DeviceCommandManager(IDeviceCommandStore deviceCommandStore, IDeviceQueryManager deviceQueryManager)
+        public DeviceCommandManager(RestClient client, IDeviceCommandStore deviceCommandStore, IDeviceQueryManager deviceQueryManager)
+            : base(client)
         {
             this.deviceCommandStore = deviceCommandStore;
             this.deviceQueryManager = deviceQueryManager;
@@ -42,6 +45,18 @@ namespace RainMakr.Web.BusinessLogics.Command
             var device = await this.deviceQueryManager.GetDeviceAsync(personId, id);
             
             await this.deviceCommandStore.RemoveDeviceAsync(device);
+        }
+
+        public async Task StartDeviceAsync(string personId, string id)
+        {
+            var device = await this.deviceQueryManager.GetDeviceAsync(personId, id);
+
+            Execute("Start", Method.POST, null, null);
+        }
+
+        public async Task StopDeviceAsync(string personId, string id)
+        {
+            var device = await this.deviceQueryManager.GetDeviceAsync(personId, id);
         }
     }
 }

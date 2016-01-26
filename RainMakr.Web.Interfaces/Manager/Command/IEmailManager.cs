@@ -15,7 +15,6 @@ namespace RainMakr.Web.Interfaces.Manager.Command
     /// <summary>
     /// The EmailManager interface.
     /// </summary>
-    [ContractClass(typeof(EmailManagerContracts))]
     public interface IEmailManager : ICommandManager
     {
         /// <summary>

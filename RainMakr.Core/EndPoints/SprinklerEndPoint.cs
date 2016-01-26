@@ -18,8 +18,6 @@ namespace RainMakr.Core.EndPoints
 
         private bool sprinklerState;
 
-        #region Endpoint initialization
-
         public SprinklerEndPoint()
         {
             this.led = new OutputPort(Pins.ONBOARD_LED, false);
@@ -71,10 +69,6 @@ namespace RainMakr.Core.EndPoints
 
             return "OK. Sprinkler is currently: " + (this.sprinklerState ? "on" : "off") + ".";
         }
-
-        #endregion
-
-        #region Endpoint Execution
 
         private string StartSprinkler(EndPointActionArguments misc, string[] items)
         {
@@ -129,6 +123,5 @@ namespace RainMakr.Core.EndPoints
             return "OK. Sprinkler is now off.";
         }
 
-        #endregion
     }
 }

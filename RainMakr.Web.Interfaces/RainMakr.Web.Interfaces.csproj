@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Manager\Command\EmailManagerContracts.cs" />
     <Compile Include="Manager\Command\ICommandManager.cs" />
     <Compile Include="Manager\Command\IDeviceCommandManager.cs" />
     <Compile Include="Manager\Command\IEmailManager.cs" />

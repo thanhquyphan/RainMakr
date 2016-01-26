@@ -39,7 +39,7 @@ namespace RainMakr.Web.UI.Controllers
             var model = await this.deviceQueryManager.GetDeviceAsync(this.User.Identity.GetUserId(), id);
             model.Schedules = await
                 this.scheduleQueryManager.GetSchedulesAsync(this.HttpContext.User.Identity.GetUserId(), id);
-            return View(model);
+            return View("Index", model);
         }
 
         [Route("Add")]
@@ -61,6 +61,20 @@ namespace RainMakr.Web.UI.Controllers
 
             await this.deviceCommandManager.AddDeviceAsync(this.HttpContext.User.Identity.GetUserId(), device);
             return RedirectToAction("Index", new { Id = device.Id});
+        }
+
+        [HttpPost]
+        [Route("Start")]
+        public async Task<ActionResult> Start(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                ModelState.AddModelError("id", "Invalid id provided.");
+                return await this.Index(id);
+            }
+
+            await this.deviceCommandManager.StartDeviceAsync(this.HttpContext.User.Identity.GetUserId(), id);
+            return await this.Index(id);
         }
 
         [HttpPost]

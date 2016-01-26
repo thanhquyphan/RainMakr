@@ -78,9 +78,9 @@ namespace RainMakr.Core.Web
             }
             string commandData;
 
-            // Remove GET + Space
-            if (rawData.Length > 5)
-                commandData = rawData.Substring(5, rawData.Length - 5);
+            // Remove GET/POST + Space
+            if (rawData.Length > 5 || rawData.Length > 6)
+                commandData = rawData.Substring(0, 3).ToLower() == "get" ? rawData.Substring(5, rawData.Length - 5) : rawData.Substring(6, rawData.Length - 6);
             else
                 return null;
 

@@ -13,5 +13,9 @@ namespace RainMakr.Web.Interfaces.Manager.Command
         Task AddDeviceAsync(string personId, Device device);
 
         Task RemoveDeviceAsync(string personId, string id);
+
+        Task StartDeviceAsync(string personId, string id);
+
+        Task StopDeviceAsync(string personId, string id);
     }
 }

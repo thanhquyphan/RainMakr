@@ -49,7 +49,10 @@
   <ItemGroup>
     <Compile Include="Core\EmailSendFailureException.cs" />
     <Compile Include="Core\Extensions\EnumExtensions.cs" />
+    <Compile Include="Core\Extensions\ServiceValidationException.cs" />
+    <Compile Include="Core\Extensions\WebApiException.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="DeviceStatus.cs" />
     <Compile Include="Notifications\AccountConfirmationNotification.cs" />
     <Compile Include="Notifications\PasswordResetNotification.cs" />
     <Compile Include="Person.cs" />
