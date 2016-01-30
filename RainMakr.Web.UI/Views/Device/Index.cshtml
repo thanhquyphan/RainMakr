@@ -1,43 +1,60 @@
-﻿@model RainMakr.Web.Models.Device
+﻿@model RainMakr.Web.UI.ViewModels.DeviceViewModel
 
 @{
-    ViewBag.Title = string.Format("Device | {0}", Model.Name);
+    ViewBag.Title = string.Format("Device | {0}", Model.Device.Name);
 }
 
 
 <div class="row">
     <div class="col-md-10">
-        <h1>@Model.Name</h1>
+        <h1>@Model.Device.Name</h1>
         <div class="pull-right">
             <button class="btn btn-danger" data-toggle="modal" data-target="#remove-device-confirmation">Remove this device</button>
         </div>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Device.Name)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Name)
+                @Html.DisplayFor(model => model.Device.Name)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.MacAddress)
+                @Html.DisplayNameFor(model => model.Device.MacAddress)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.MacAddress)
+                @Html.DisplayFor(model => model.Device.MacAddress)
+            </dd>
+            <dt>
+                @Html.DisplayName("Current status")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
             </dd>
         </dl>
 
-        <form action="@Url.Action("Start", "Device", new { Id = Model.Id })" method="post">
-            <button type="submit" class="btn btn-primary">Start</button>
-        </form>
+        <div class="row">
+            <div class="col-md-1">
+                <form action="@Url.Action("Start", "Device", new {Id = Model.Device.Id})" method="post">
+                    <button type="submit" class="btn btn-primary">Start</button>
+                </form>
+            </div>
+            <div class="col-md-1">
+                <form action="@Url.Action("Stop", "Device", new {Id = Model.Device.Id})" method="post">
+                    <button type="submit" class="btn btn-danger">Stop</button>
+                </form>
+            </div>
+
+        </div>
+        
         <h2>Schedules</h2>
-        @Html.ActionLink("Add a schedule", "Add", "Schedule", new { DeviceId = Model.Id }, new {@class ="btn btn-default"})
+        @Html.ActionLink("Add a schedule", "Add", "Schedule", new { DeviceId = Model.Device.Id }, new { @class = "btn btn-default" })
         <div class="row">
             <div class="col-md-4">
-                @if (Model.Schedules.Any())
+                @if (Model.Device.Schedules.Any())
                 {
-                    foreach (var schedule in Model.Schedules)
+                    foreach (var schedule in Model.Device.Schedules)
                     {
-                        <p>@Html.ActionLink(@schedule.ToString(), "Index", "Schedule", new { DeviceId = Model.Id, Id = schedule.Id }, null)</p>
+                        <p>@Html.ActionLink(@schedule.ToString(), "Index", "Schedule", new { DeviceId = Model.Device.Id, Id = schedule.Id }, null)</p>
                     }
                 }
                 else
@@ -55,7 +72,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Remove device</h4>
             </div>
-            @using (Html.BeginForm("Remove", "Device", new {Id = Model.Id}, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Remove", "Device", new { Id = Model.Device.Id }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <div class="modal-body">
                     <p>Are you sure want to remove this device?</p>

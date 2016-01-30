@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.BusinessLogics", "..\RainMakr.Web.BusinessLogics\RainMakr.Web.BusinessLogics.csproj", "{D12F8AAD-89D4-4C27-B6EE-21ADB228EF97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.Data", "..\RainMakr.Web.Data\RainMakr.Web.Data.csproj", "{2DEF33F3-063B-4049-AB9B-5AF32713BEA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.Interfaces", "..\RainMakr.Web.Interfaces\RainMakr.Web.Interfaces.csproj", "{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.Models", "..\RainMakr.Web.Models\RainMakr.Web.Models.csproj", "{9471289B-E47B-4653-BE29-1FB0E945EDD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web", "..\RainMakr.Web\RainMakr.Web.csproj", "{7F11FEAF-B0CF-4533-B19C-F1F347B294F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.UI", "..\RainMakr.Web.UI\RainMakr.Web.UI.csproj", "{C66768DB-F9F4-458A-ABCB-54D189551760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D12F8AAD-89D4-4C27-B6EE-21ADB228EF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12F8AAD-89D4-4C27-B6EE-21ADB228EF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12F8AAD-89D4-4C27-B6EE-21ADB228EF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12F8AAD-89D4-4C27-B6EE-21ADB228EF97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DEF33F3-063B-4049-AB9B-5AF32713BEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEF33F3-063B-4049-AB9B-5AF32713BEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEF33F3-063B-4049-AB9B-5AF32713BEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEF33F3-063B-4049-AB9B-5AF32713BEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ACC6E3B-6D7B-4D7B-A77B-98F58569EAAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9471289B-E47B-4653-BE29-1FB0E945EDD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9471289B-E47B-4653-BE29-1FB0E945EDD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9471289B-E47B-4653-BE29-1FB0E945EDD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9471289B-E47B-4653-BE29-1FB0E945EDD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F11FEAF-B0CF-4533-B19C-F1F347B294F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F11FEAF-B0CF-4533-B19C-F1F347B294F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F11FEAF-B0CF-4533-B19C-F1F347B294F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F11FEAF-B0CF-4533-B19C-F1F347B294F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66768DB-F9F4-458A-ABCB-54D189551760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66768DB-F9F4-458A-ABCB-54D189551760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66768DB-F9F4-458A-ABCB-54D189551760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66768DB-F9F4-458A-ABCB-54D189551760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

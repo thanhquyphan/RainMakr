@@ -9,7 +9,7 @@ namespace RainMakr.Web.Models
     public enum DeviceStatus
     {
         Undefined = 0,
-        On,
-        Off
+        On = 1,
+        Off = 2
     }
 }

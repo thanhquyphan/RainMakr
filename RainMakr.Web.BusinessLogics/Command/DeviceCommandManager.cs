@@ -57,6 +57,7 @@ namespace RainMakr.Web.BusinessLogics.Command
         public async Task StopDeviceAsync(string personId, string id)
         {
             var device = await this.deviceQueryManager.GetDeviceAsync(personId, id);
+            Execute("Stop", Method.POST, null, null);
         }
     }
 }

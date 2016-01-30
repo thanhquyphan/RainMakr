@@ -36,9 +36,13 @@ namespace RainMakr.Web.UI.Controllers
         [Route("{id}")]
         public async Task<ActionResult> Index(string id)
         {
-            var model = await this.deviceQueryManager.GetDeviceAsync(this.User.Identity.GetUserId(), id);
-            model.Schedules = await
-                this.scheduleQueryManager.GetSchedulesAsync(this.HttpContext.User.Identity.GetUserId(), id);
+            var personId = this.User.Identity.GetUserId();
+            var device = await this.deviceQueryManager.GetDeviceAsync(personId, id);
+            device.Schedules = await
+                this.scheduleQueryManager.GetSchedulesAsync(personId, id);
+            var status = await this.deviceQueryManager.GetDeviceStatusAsync(personId, id);
+
+            var model = new DeviceViewModel{Device = device, Status = status};
             return View("Index", model);
         }
 
@@ -74,6 +78,20 @@ namespace RainMakr.Web.UI.Controllers
             }
 
             await this.deviceCommandManager.StartDeviceAsync(this.HttpContext.User.Identity.GetUserId(), id);
+            return await this.Index(id);
+        }
+
+        [HttpPost]
+        [Route("Stop")]
+        public async Task<ActionResult> Stop(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                ModelState.AddModelError("id", "Invalid id provided.");
+                return await this.Index(id);
+            }
+
+            await this.deviceCommandManager.StopDeviceAsync(this.HttpContext.User.Identity.GetUserId(), id);
             return await this.Index(id);
         }
 

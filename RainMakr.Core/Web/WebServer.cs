@@ -300,7 +300,8 @@ a {
         {
             try
             {
-                byte[] returnBytes = Encoding.UTF8.GetBytes(response);
+                var header = "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: " + response.Length + "\r\nContent-Type: text/plain\r\n\r\n" + response;
+                byte[] returnBytes = Encoding.UTF8.GetBytes(header);
                 WriteBytes(returnBytes, connection);
             }
             catch (Exception ex)

@@ -10,6 +10,7 @@ namespace RainMakr.Web.BusinessLogics
     using System.Diagnostics.Contracts;
     using System.Net;
 
+    using RainMakr.Web.Models;
     using RainMakr.Web.Models.Core.Extensions;
 
     using RestSharp;
@@ -117,8 +118,7 @@ namespace RainMakr.Web.BusinessLogics
             {
                 // HACK: RestSharp JsonDeserializer currently doesn't handle value types
                 var content = response.Content;
-
-                return (T)Convert.ChangeType(content, typeof(T));
+                return typeof(T).IsEnum ? (T)Enum.Parse(typeof(T), content) : (T)Convert.ChangeType(content, typeof(T));
             }
 
             return response.Data;
@@ -212,7 +212,7 @@ namespace RainMakr.Web.BusinessLogics
 
             // HACK: The InvalidCastException check below attempts to ignore JsonDeserializer inability to work with value types
             // We will assume that continuing to process the response will be successful
-            if (response.ErrorException != null && response.ErrorException is InvalidCastException == false)
+            if (statusCode != 200 && response.ErrorException != null && response.ErrorException is InvalidCastException == false)
             {
 
                 throw response.ErrorException;

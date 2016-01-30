@@ -13,11 +13,14 @@ namespace RainMakr.Web.BusinessLogics.Query
     using RainMakr.Web.Interfaces.Store.Query;
     using RainMakr.Web.Models;
 
-    public class DeviceQueryManager : IDeviceQueryManager
+    using RestSharp;
+
+    public class DeviceQueryManager : WebServiceBase, IDeviceQueryManager
     {
         private readonly IDeviceQueryStore deviceQueryStore;
 
-        public DeviceQueryManager(IDeviceQueryStore deviceQueryStore)
+        public DeviceQueryManager(RestClient client, IDeviceQueryStore deviceQueryStore)
+            : base(client)
         {
             this.deviceQueryStore = deviceQueryStore;
         }
@@ -38,9 +41,15 @@ namespace RainMakr.Web.BusinessLogics.Query
             return this.deviceQueryStore.GetDevicesAsync(personId);
         }
 
-        public Task<DeviceStatus> GetDeviceStatusAsync(string personId, string id)
+        public async Task<DeviceStatus> GetDeviceStatusAsync(string personId, string id)
         {
-            throw new NotImplementedException();
+            var device = await this.GetDeviceAsync(personId, id);
+            Action<IRestResponse<DeviceStatus>> processResponse = x =>
+                { };
+
+            var result = Execute("Status", Method.POST, null, processResponse);
+
+            return result;
         }
     }
 }

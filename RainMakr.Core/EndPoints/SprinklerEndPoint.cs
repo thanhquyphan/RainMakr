@@ -67,7 +67,7 @@ namespace RainMakr.Core.EndPoints
             //    text = "No arguments!";
             //}
 
-            return "OK. Sprinkler is currently: " + (this.sprinklerState ? "on" : "off") + ".";
+            return this.sprinklerState ? "On" : "Off";
         }
 
         private string StartSprinkler(EndPointActionArguments misc, string[] items)
