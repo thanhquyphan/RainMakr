@@ -12,6 +12,7 @@ namespace RainMakr.Web.Configuration
     using System;
     using System.Configuration;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.Mvc;
 
     using Microsoft.AspNet.Identity;
@@ -49,6 +50,32 @@ namespace RainMakr.Web.Configuration
             {
                 return container;
             }
+        }
+
+        public static void SetupUnityContainerWebApi()
+        {
+            container = new UnityContainer();
+
+            var applicationDbContext = new ApplicationDatabaseContext();
+            var userStore = new UserStore<Person>(applicationDbContext);
+            container.RegisterInstance(
+                typeof(ApplicationDatabaseContext), applicationDbContext);
+
+            container.RegisterTypes(
+                AllClasses.FromLoadedAssemblies()
+                    .Where(
+                        type =>
+                        (typeof(IManager).IsAssignableFrom(type) || typeof(IStore).IsAssignableFrom(type))
+                        && !type.IsAbstract && !type.IsInterface),
+                WithMappings.FromMatchingInterface,
+                WithName.Default,
+                WithLifetime.PerResolve);
+            container.RegisterType<IEmailManager, EmailManager>();
+            var userManager = AuthConfig.ConfigureUserManager(userStore, null);
+            container.RegisterInstance(typeof(UserManager<Person>), userManager);
+            container.RegisterInstance(typeof(IUserStore<Person>), userStore);
+
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
 
         /// <summary>

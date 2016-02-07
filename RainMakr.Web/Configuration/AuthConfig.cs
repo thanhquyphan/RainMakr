@@ -89,11 +89,14 @@ namespace RainMakr.Web.Configuration
             ////this.EmailService = new EmailService();
             ////this.SmsService = new SmsService();
 
-            var dataProtectionProvider = app.GetDataProtectionProvider();
-            if (dataProtectionProvider != null)
+            if (app != null)
             {
-                userManager.UserTokenProvider =
-                    new DataProtectorTokenProvider<Person>(dataProtectionProvider.Create("ASP.NET Identity"));
+                var dataProtectionProvider = app.GetDataProtectionProvider();
+                if (dataProtectionProvider != null)
+                {
+                    userManager.UserTokenProvider =
+                        new DataProtectorTokenProvider<Person>(dataProtectionProvider.Create("ASP.NET Identity"));
+                }
             }
 
             return userManager;
