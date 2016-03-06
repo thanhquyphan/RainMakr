@@ -39,5 +39,13 @@ namespace RainMakr.Web.Data.Command
             this.databaseContext.Devices.Remove(device);
             return this.databaseContext.SaveChangesAsync();
         }
+
+        public Task UpdateIpAddressAsync(string id, string ip)
+        {
+            var device = this.databaseContext.Devices.Find(id);
+
+            device.IpAddress = ip;
+            return this.databaseContext.SaveChangesAsync();
+        }
     }
 }

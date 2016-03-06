@@ -10,5 +10,7 @@
         Task<List<Device>> GetDevicesAsync(string personId);
 
         Task<Device> GetDeviceAsync(string id);
+
+        Task<Device> GetDeviceByMacAddressAsync(string macAddress);
     }
 }

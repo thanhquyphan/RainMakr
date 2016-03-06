@@ -38,5 +38,10 @@ namespace RainMakr.Web.Data.Query
         {
             return this.databaseContext.Devices.FindAsync(id);
         }
+
+        public Task<Device> GetDeviceByMacAddressAsync(string macAddress)
+        {
+            return this.databaseContext.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
+        }
     }
 }

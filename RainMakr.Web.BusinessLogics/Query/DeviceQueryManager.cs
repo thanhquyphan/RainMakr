@@ -20,7 +20,6 @@ namespace RainMakr.Web.BusinessLogics.Query
         private readonly IDeviceQueryStore deviceQueryStore;
 
         public DeviceQueryManager(RestClient client, IDeviceQueryStore deviceQueryStore)
-            : base(client)
         {
             this.deviceQueryStore = deviceQueryStore;
         }
@@ -36,6 +35,16 @@ namespace RainMakr.Web.BusinessLogics.Query
             return device;
         }
 
+        public Task<Device> GetDeviceByIdAsync(string id)
+        {
+            return this.deviceQueryStore.GetDeviceAsync(id);
+        }
+
+        public Task<Device> GetDeviceByMacAddressAsync(string macAddress)
+        {
+            return this.deviceQueryStore.GetDeviceByMacAddressAsync(macAddress);
+        }
+
         public Task<List<Device>> GetDevicesAsync(string personId)
         {
             return this.deviceQueryStore.GetDevicesAsync(personId);
@@ -47,7 +56,7 @@ namespace RainMakr.Web.BusinessLogics.Query
             Action<IRestResponse<DeviceStatus>> processResponse = x =>
                 { };
 
-            var result = Execute("Status", Method.POST, null, processResponse);
+            var result = Execute(device.IpAddress, "Status", Method.POST, null, processResponse);
 
             return result;
         }

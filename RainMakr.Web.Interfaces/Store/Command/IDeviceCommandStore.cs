@@ -13,5 +13,7 @@ namespace RainMakr.Web.Interfaces.Store.Command
         Task AddDeviceAsync(Device device);
 
         Task RemoveDeviceAsync(Device device);
+
+        Task UpdateIpAddressAsync(string id, string ip);
     }
 }

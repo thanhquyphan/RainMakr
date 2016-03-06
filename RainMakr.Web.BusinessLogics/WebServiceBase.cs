@@ -20,30 +20,16 @@ namespace RainMakr.Web.BusinessLogics
         /// <summary>
         /// Stores the service client.
         /// </summary>
-        private readonly RestClient _serviceClient;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebServiceBase"/> class.
-        ///     Initialises a new instance of the <see cref="WebServiceBase"/> class.
-        /// </summary>
-        /// <param name="serviceClient">
-        /// The service client.
-        /// </param>
-        /// <param name="serviceLocation">
-        /// The service location.
-        /// </param>
-        protected WebServiceBase(RestClient serviceClient)
-        {
-            Contract.Requires<ArgumentNullException>(serviceClient != null);
-
-            this._serviceClient = serviceClient;
-        }
+        private RestClient _serviceClient;
 
         /// <summary>
         /// Executes the specified service location.
         /// </summary>
         /// <param name="serviceLocation">
         /// The service location.
+        /// </param>
+        /// <param name="resourceLocation">
+        /// The resource location.
         /// </param>
         /// <param name="method">
         /// The service method.
@@ -61,13 +47,16 @@ namespace RainMakr.Web.BusinessLogics
         /// </exception>
         protected virtual void Execute(
             string serviceLocation,
+            string resourceLocation,
             Method method,
             Action<IRestRequest> configureRequest,
             Action<IRestResponse> processResponse)
         {
+            Contract.Requires<ArgumentNullException>(string.IsNullOrWhiteSpace(resourceLocation) == false);
             Contract.Requires<ArgumentNullException>(string.IsNullOrWhiteSpace(serviceLocation) == false);
 
-            var request = this.BuildRequest(serviceLocation, method, configureRequest);
+            this._serviceClient = new RestClient(new Uri(serviceLocation));
+            var request = this.BuildRequest(resourceLocation, method, configureRequest);
 
             var response = this._serviceClient.Execute(request);
 
@@ -82,6 +71,9 @@ namespace RainMakr.Web.BusinessLogics
         /// </typeparam>
         /// <param name="serviceLocation">
         /// The service location.
+        /// </param>
+        /// <param name="resourceLocation">
+        /// The resource location.
         /// </param>
         /// <param name="method">
         /// The service method.
@@ -102,13 +94,16 @@ namespace RainMakr.Web.BusinessLogics
         /// </exception>
         protected virtual T Execute<T>(
             string serviceLocation,
+            string resourceLocation,
             Method method,
             Action<IRestRequest> configureRequest,
             Action<IRestResponse<T>> processResponse) where T : new()
         {
+            Contract.Requires<ArgumentNullException>(string.IsNullOrWhiteSpace(resourceLocation) == false);
             Contract.Requires<ArgumentNullException>(string.IsNullOrWhiteSpace(serviceLocation) == false);
 
-            var request = this.BuildRequest(serviceLocation, method, configureRequest);
+            this._serviceClient = new RestClient(new Uri(serviceLocation));
+            var request = this.BuildRequest(resourceLocation, method, configureRequest);
 
             var response = this._serviceClient.Execute<T>(request);
 
@@ -127,8 +122,8 @@ namespace RainMakr.Web.BusinessLogics
         /// <summary>
         /// Builds the request.
         /// </summary>
-        /// <param name="serviceLocation">
-        /// The service location.
+        /// <param name="resourceLocation">
+        /// The resource location.
         /// </param>
         /// <param name="method">
         /// The service method.
@@ -139,11 +134,11 @@ namespace RainMakr.Web.BusinessLogics
         /// <returns>
         /// A <see cref="RestRequest"/> value.
         /// </returns>
-        private RestRequest BuildRequest(string serviceLocation, Method method, Action<IRestRequest> configureRequest)
+        private RestRequest BuildRequest(string resourceLocation, Method method, Action<IRestRequest> configureRequest)
         {
             var request = new RestRequest(method)
             {
-                Resource = serviceLocation,
+                Resource = resourceLocation,
                 Credentials = CredentialCache.DefaultNetworkCredentials,
                 RequestFormat = DataFormat.Json,
                 DateFormat = "yyyy-MM-ddTHH:mm:ss"

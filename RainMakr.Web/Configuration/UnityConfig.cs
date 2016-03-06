@@ -106,7 +106,6 @@ namespace RainMakr.Web.Configuration
             var userManager = AuthConfig.ConfigureUserManager(userStore, app);
             container.RegisterInstance(typeof(UserManager<Person>), userManager);
             container.RegisterInstance(typeof(IUserStore<Person>), userStore);
-            container.RegisterInstance(typeof(RestClient), new RestClient(new Uri(ConfigurationManager.AppSettings["ServiceLocation"])));
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory(container));
         }
     }

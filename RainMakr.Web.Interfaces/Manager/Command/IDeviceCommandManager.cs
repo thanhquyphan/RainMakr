@@ -16,6 +16,10 @@ namespace RainMakr.Web.Interfaces.Manager.Command
 
         Task StartDeviceAsync(string personId, string id);
 
+        Task StartDeviceByScheduleAsync(string scheduleId, string id);
+
         Task StopDeviceAsync(string personId, string id);
+
+        Task UpdateIpAddressAsync(string macAddress, string ip);
     }
 }
