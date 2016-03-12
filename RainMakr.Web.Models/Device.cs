@@ -25,6 +25,12 @@ namespace RainMakr.Web.Models
 
         public string IpAddress { get; set; }
 
+        [MaxLength(200)]
+        public string City { get; set; }
+
+        [MaxLength(200)]
+        public string CountryCode { get; set; }
+
         [Required]
         [MaxLength(17)]
         public string MacAddress { get; set; }

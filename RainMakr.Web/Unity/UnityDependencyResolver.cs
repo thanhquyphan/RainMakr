@@ -74,7 +74,7 @@ namespace RainMakr.Web.Unity
         /// </returns>
         public object GetService(Type serviceType)
         {
-            return null;
+            return this._container.Resolve(serviceType);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace RainMakr.Web.Unity
         /// </returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return new List<object>();
+            return this._container.ResolveAll(serviceType);
         }
 
         /// <summary>

@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201601230531284_AddDeviceIpAddress.Designer.cs">
       <DependentUpon>201601230531284_AddDeviceIpAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603120953072_AddDeviceCityAndCountry.cs" />
+    <Compile Include="Migrations\201603120953072_AddDeviceCityAndCountry.Designer.cs">
+      <DependentUpon>201603120953072_AddDeviceCityAndCountry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\DeviceQueryStore.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601230531284_AddDeviceIpAddress.resx">
       <DependentUpon>201601230531284_AddDeviceIpAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603120953072_AddDeviceCityAndCountry.resx">
+      <DependentUpon>201603120953072_AddDeviceCityAndCountry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -13,5 +13,7 @@ namespace RainMakr.Web.Interfaces.Manager.Query
         Task<Schedule> GetScheduleAsync(string personId, string deviceId, string id);
 
         Task<List<Schedule>> GetSchedulesAsync(string personId, string deviceId);
+
+        Task<List<Schedule>> GetElapsedSchedulesAsync();
     }
 }

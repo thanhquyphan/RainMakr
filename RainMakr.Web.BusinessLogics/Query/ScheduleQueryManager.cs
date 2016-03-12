@@ -44,5 +44,10 @@ namespace RainMakr.Web.BusinessLogics.Query
 
             return await this.scheduleQueryStore.GetSchedulesAsync(device.Id);
         }
+
+        public Task<List<Schedule>> GetElapsedSchedulesAsync()
+        {
+            return this.scheduleQueryStore.GetElapsedSchedulesAsync();
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace RainMakr.Web.BusinessLogics.Query
     {
         private readonly IDeviceQueryStore deviceQueryStore;
 
-        public DeviceQueryManager(RestClient client, IDeviceQueryStore deviceQueryStore)
+        public DeviceQueryManager(IDeviceQueryStore deviceQueryStore)
         {
             this.deviceQueryStore = deviceQueryStore;
         }
@@ -53,6 +53,12 @@ namespace RainMakr.Web.BusinessLogics.Query
         public async Task<DeviceStatus> GetDeviceStatusAsync(string personId, string id)
         {
             var device = await this.GetDeviceAsync(personId, id);
+
+            if (string.IsNullOrWhiteSpace(device.IpAddress))
+            {
+                return DeviceStatus.Undefined;
+            }
+
             Action<IRestResponse<DeviceStatus>> processResponse = x =>
                 { };
 
