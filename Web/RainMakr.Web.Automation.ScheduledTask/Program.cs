@@ -21,10 +21,21 @@ namespace RainMakr.Web.Automation.ScheduledTask
                 (IScheduleQueryManager)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IScheduleQueryManager));
             var deviceCommandManager =
                 (IDeviceCommandManager)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IDeviceCommandManager));
+            var weatherQueryManager = 
+                (IWeatherQueryManager)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IWeatherQueryManager));
 
             var schedules = await scheduleQueryManager.GetElapsedSchedulesAsync();
             foreach (var schedule in schedules)
             {
+                if (schedule.CheckForRain)
+                {
+                    var raining = await weatherQueryManager.CurrentWeatherIsRainingForDeviceAsync(schedule.DeviceId);
+
+                    if (raining)
+                    {
+                        continue;
+                    }
+                }
                 await deviceCommandManager.StartDeviceByScheduleAsync(schedule.Id, schedule.DeviceId);
             }
         }

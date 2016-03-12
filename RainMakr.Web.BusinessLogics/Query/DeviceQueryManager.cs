@@ -62,7 +62,7 @@ namespace RainMakr.Web.BusinessLogics.Query
             Action<IRestResponse<DeviceStatus>> processResponse = x =>
                 { };
 
-            var result = Execute(device.IpAddress, "Status", Method.POST, null, processResponse);
+            var result = Execute(device.IpAddress, "Status", Method.GET, null, processResponse);
 
             return result;
         }

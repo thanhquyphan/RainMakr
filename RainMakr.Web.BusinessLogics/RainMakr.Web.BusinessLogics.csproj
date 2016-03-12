@@ -107,6 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\DeviceQueryManager.cs" />
     <Compile Include="Query\ScheduleQueryManager.cs" />
+    <Compile Include="Query\WeatherQueryManager.cs" />
     <Compile Include="WebServiceBase.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -47,6 +47,7 @@
     <Compile Include="Manager\Query\IDeviceQueryManager.cs" />
     <Compile Include="Manager\Query\IQueryManager.cs" />
     <Compile Include="Manager\Query\IScheduleQueryManager.cs" />
+    <Compile Include="Manager\Query\IWeatherQueryManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\Command\ICommandStore.cs" />
     <Compile Include="Store\Command\IDeviceCommandStore.cs" />
