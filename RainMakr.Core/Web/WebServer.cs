@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.IO;
 using Microsoft.SPOT;
 
 namespace RainMakr.Core.Web
@@ -62,6 +64,7 @@ namespace RainMakr.Core.Web
             // start server
             _cancel = false;
             _serverThread.Start();
+            this.GetExternalIp();
             Debug.Print("Started server in thread " + _serverThread.GetHashCode());
         }
 
@@ -191,6 +194,19 @@ namespace RainMakr.Core.Web
 
                 }
             }
+        }
+
+
+        private void GetExternalIp()
+        {
+            var request = (HttpWebRequest)WebRequest.Create(new Uri("http://checkip.dyndns.org"));
+
+            request.Method = "Get";
+            var streamReader = new StreamReader(request.GetResponse().GetResponseStream());
+
+            var publicIp = streamReader.ReadToEnd().Split(':')[1].Substring(1).Split('<')[0];
+
+            Debug.Print(publicIp);
         }
 
         private string GetApiList()
@@ -340,7 +356,7 @@ a {
         /// <summary>
         /// List of commands that can be handled by the server.
         /// </summary>
-        private readonly System.Collections.ArrayList _allowedEndPoints = new System.Collections.ArrayList();
+        private readonly ArrayList _allowedEndPoints = new ArrayList();
         
         public void RegisterEndPoint(EndPoint endPoint)
         {
