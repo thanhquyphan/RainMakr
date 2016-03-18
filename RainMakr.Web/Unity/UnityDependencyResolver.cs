@@ -50,7 +50,8 @@ namespace RainMakr.Web.Unity
                 throw new ObjectDisposedException(GetType().Name);
             }
 
-            return new UnityResolutionScope(_container);
+            var child = this._container.CreateChildContainer();
+            return new UnityDependencyResolver(child);
         }
 
         /// <summary>
@@ -74,7 +75,14 @@ namespace RainMakr.Web.Unity
         /// </returns>
         public object GetService(Type serviceType)
         {
-            return this._container.Resolve(serviceType);
+            try
+            {
+                return this._container.Resolve(serviceType);
+            }
+            catch (ResolutionFailedException)
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -88,7 +96,14 @@ namespace RainMakr.Web.Unity
         /// </returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return this._container.ResolveAll(serviceType);
+            try
+            {
+                return this._container.ResolveAll(serviceType);
+            }
+            catch (ResolutionFailedException)
+            {
+                return new List<object>();
+            }
         }
 
         /// <summary>

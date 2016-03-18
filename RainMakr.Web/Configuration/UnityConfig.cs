@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.Practices.Unity;
+
 namespace RainMakr.Web.Configuration
 {
     using System;
@@ -17,7 +19,6 @@ namespace RainMakr.Web.Configuration
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.Practices.Unity;
 
     using Owin;
 
@@ -52,7 +53,7 @@ namespace RainMakr.Web.Configuration
             }
         }
 
-        public static void SetupUnityContainerWebApi()
+        public static void SetupUnityContainer()
         {
             container = new UnityContainer();
 
@@ -74,7 +75,6 @@ namespace RainMakr.Web.Configuration
             var userManager = AuthConfig.ConfigureUserManager(userStore, null);
             container.RegisterInstance(typeof(UserManager<Person>), userManager);
             container.RegisterInstance(typeof(IUserStore<Person>), userStore);
-
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
 
@@ -107,6 +107,7 @@ namespace RainMakr.Web.Configuration
             container.RegisterInstance(typeof(UserManager<Person>), userManager);
             container.RegisterInstance(typeof(IUserStore<Person>), userStore);
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

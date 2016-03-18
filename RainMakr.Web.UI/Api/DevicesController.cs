@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using RainMakr.Web.Interfaces.Manager.Command;
 
-namespace RainMakr.Web.Api.Controllers
+namespace RainMakr.Web.UI.Api
 {
     public class DevicesController : ApiController
     {
@@ -14,7 +14,7 @@ namespace RainMakr.Web.Api.Controllers
         {
             this.deviceCommandManager = deviceCommandManager;
         }
-
+        
         [HttpPost]
         [ActionName("updateIpAddress")]
         public async Task<HttpResponseMessage> UpdateIpAddressAsync([FromBody] string macAddress, string ip)

@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web", "..\RainMakr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.UI", "..\RainMakr.Web.UI\RainMakr.Web.UI.csproj", "{C66768DB-F9F4-458A-ABCB-54D189551760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.Api", "RainMakr.Web.Api\RainMakr.Web.Api.csproj", "{56A7F5CA-9AE4-4335-BCB8-F154678350AD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainMakr.Web.Automation.ScheduledTask", "RainMakr.Web.Automation.ScheduledTask\RainMakr.Web.Automation.ScheduledTask.csproj", "{0424C466-9B40-4DD6-AE28-B02BECE327CF}"
 EndProject
 Global
@@ -49,10 +47,6 @@ Global
 		{C66768DB-F9F4-458A-ABCB-54D189551760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C66768DB-F9F4-458A-ABCB-54D189551760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C66768DB-F9F4-458A-ABCB-54D189551760}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56A7F5CA-9AE4-4335-BCB8-F154678350AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56A7F5CA-9AE4-4335-BCB8-F154678350AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56A7F5CA-9AE4-4335-BCB8-F154678350AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56A7F5CA-9AE4-4335-BCB8-F154678350AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0424C466-9B40-4DD6-AE28-B02BECE327CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0424C466-9B40-4DD6-AE28-B02BECE327CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0424C466-9B40-4DD6-AE28-B02BECE327CF}.Release|Any CPU.ActiveCfg = Release|Any CPU

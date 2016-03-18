@@ -235,7 +235,7 @@ namespace RainMakr.Core.Web
                 returnString += "</ul></body>";
                 return returnString;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -306,7 +306,7 @@ a {
                 {
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -320,7 +320,7 @@ a {
                 byte[] returnBytes = Encoding.UTF8.GetBytes(header);
                 WriteBytes(returnBytes, connection);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

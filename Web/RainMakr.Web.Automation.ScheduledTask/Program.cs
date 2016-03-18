@@ -10,7 +10,7 @@ namespace RainMakr.Web.Automation.ScheduledTask
     {
         static void Main(string[] args)
         {
-            UnityConfig.SetupUnityContainerWebApi();
+            UnityConfig.SetupUnityContainer();
 
             AsyncContext.Run(() => MainAsync());
         }
