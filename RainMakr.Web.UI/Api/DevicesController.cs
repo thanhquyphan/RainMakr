@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using RainMakr.Web.Interfaces.Manager.Command;
 
@@ -17,7 +18,7 @@ namespace RainMakr.Web.UI.Api
         
         [HttpPost]
         [ActionName("updateIpAddress")]
-        public async Task<HttpResponseMessage> UpdateIpAddressAsync([FromBody] string macAddress, string ip)
+        public async Task<HttpResponseMessage> UpdateIpAddressAsync(string macAddress)
         {
             // POST: api/devices/{ip}/updateIpAddress
             if (!this.ModelState.IsValid)
@@ -25,23 +26,9 @@ namespace RainMakr.Web.UI.Api
                 return this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
             }
 
+            var ip = HttpContext.Current.Request.UserHostAddress;
             await this.deviceCommandManager.UpdateIpAddressAsync(macAddress, ip);
             
-            return this.Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        [ActionName("start")]
-        public async Task<HttpResponseMessage> StartDeviceAsync([FromBody] string id, string scheduleId)
-        {
-            // POST: api/devices/{scheduleId}/start
-            if (!this.ModelState.IsValid)
-            {
-                return this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
-            }
-
-            await this.deviceCommandManager.StartDeviceByScheduleAsync(scheduleId, id);
-
             return this.Request.CreateResponse(HttpStatusCode.OK);
         }
     }

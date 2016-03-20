@@ -80,7 +80,7 @@ namespace RainMakr.Web.BusinessLogics.Command
             {
                 x.AddUrlSegment("duration", schedule.Duration.ToString(CultureInfo.InvariantCulture));
             };
-            Execute(device.IpAddress, "Start", Method.POST, configureRequest, null);
+            Execute(device.IpAddress, "Start/{duration}", Method.POST, configureRequest, null);
         }
 
         public async Task StopDeviceAsync(string personId, string id)

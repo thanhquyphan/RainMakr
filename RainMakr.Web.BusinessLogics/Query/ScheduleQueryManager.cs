@@ -45,9 +45,12 @@ namespace RainMakr.Web.BusinessLogics.Query
             return await this.scheduleQueryStore.GetSchedulesAsync(device.Id);
         }
 
-        public Task<List<Schedule>> GetElapsedSchedulesAsync()
+        public async Task<List<Schedule>> GetElapsedSchedulesAsync()
         {
-            return this.scheduleQueryStore.GetElapsedSchedulesAsync();
+            var now = DateTime.Now;
+            var ticksFromNow = new TimeSpan(now.Hour, now.Minute, 0).Ticks;
+            var todaySchedules = await this.scheduleQueryStore.GetTodaySchedulesAsync();
+            return todaySchedules.Where(x => x.Offset.Ticks == ticksFromNow).ToList();
         }
     }
 }

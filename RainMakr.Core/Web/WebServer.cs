@@ -64,7 +64,12 @@ namespace RainMakr.Core.Web
             // start server
             _cancel = false;
             _serverThread.Start();
-            this.GetExternalIp();
+            //var timer = new System.Threading.Timer((e) =>
+            //{
+            //    this.UpdateExternalIp();
+            //}, null, TimeSpan.Zero, new TimeSpan(0, 0, 0, 5));
+            
+
             Debug.Print("Started server in thread " + _serverThread.GetHashCode());
         }
 
@@ -143,8 +148,6 @@ namespace RainMakr.Core.Web
                 while (!_cancel)
                 {
                     var connection = server.Accept();
-                    IPEndPoint clientIP = connection.RemoteEndPoint as IPEndPoint;
-                    var clientEndPoint = connection.RemoteEndPoint;
                     if (connection.Poll(-1, SelectMode.SelectRead))
                     {
                         // Create buffer and receive raw bytes.
@@ -207,6 +210,42 @@ namespace RainMakr.Core.Web
             var publicIp = streamReader.ReadToEnd().Split(':')[1].Substring(1).Split('<')[0];
 
             Debug.Print(publicIp);
+        }
+
+        private void UpdateExternalIp()
+        {
+            try
+            {
+                //WebProxy proxy = new WebProxy("10.0.0.?", 8080);
+                Debug.Print("Updating ip address");
+                using (HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("http://rainmakrweb-test.azurewebsites.net/api/devices/updateIpAddress")))
+                {
+                    string postData = "macAddress=5C-86-4A-00-CE-40";
+                    byte[] buffer = Encoding.UTF8.GetBytes(postData);
+
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentLength = buffer.Length;
+                    //request.KeepAlive = false;
+                    //request.Timeout = 100;
+                    //request.ReadWriteTimeout = 100;
+
+                    // request body
+                    using (Stream stream = request.GetRequestStream())
+                    {
+                        stream.Write(buffer, 0, buffer.Length);
+                    }
+
+                    using (var response = (HttpWebResponse)request.GetResponse())
+                    {
+                        Debug.Print("HTTP Status:" + response.StatusCode + " : " + response.StatusDescription);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
         }
 
         private string GetApiList()

@@ -20,6 +20,8 @@
 
         public DbSet<Schedule> Schedules { get; set; }
 
+        public DbSet<DeviceEvent> DeviceEvents { get; set; }
+
         /// <inheritdoc />
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +38,7 @@
             var deviceConfig = modelBuilder.Entity<Device>().HasKey(x => x.Id).ToTable("Device");
             deviceConfig.HasMany(x => x.Schedules);
             modelBuilder.Entity<Schedule>().HasKey(x => x.Id).ToTable("Schedule");
+            modelBuilder.Entity<DeviceEvent>().ToTable("DeviceEvent");
         }
     }
 }

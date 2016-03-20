@@ -39,15 +39,15 @@ namespace RainMakr.Web.Data.Query
             return this.databaseContext.Schedules.Where(x => x.DeviceId == deviceId).ToListAsync();
         }
 
-        public Task<List<Schedule>> GetElapsedSchedulesAsync()
+        public Task<List<Schedule>> GetTodaySchedulesAsync()
         {
-            var now = DateTime.Now;
-            var ticksFromNow = new TimeSpan(now.Hour, now.Minute, 0).Ticks;
+            DayOfWeek todayEnum;
+            Enum.TryParse(DateTime.Today.DayOfWeek.ToString(), out todayEnum);
             return
                 this.databaseContext.Schedules.Where(
-                    x => x.Offset.Ticks == ticksFromNow &&
-                        ((x.Recurrence && x.Days.GetValueOrDefault().HasFlag(DateTime.Today.DayOfWeek)) ||
-                        (!x.Recurrence && x.StartDate.GetValueOrDefault() == DateTime.Today))).ToListAsync();
+                    x =>
+                    (x.Recurrence && x.Days.Value.HasFlag(todayEnum)) ||
+                        (!x.Recurrence && x.StartDate == DateTime.Today)).ToListAsync();
         }
     }
 }
